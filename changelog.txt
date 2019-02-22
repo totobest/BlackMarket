@@ -1,0 +1,118 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.1.2
+  Changes:
+    - ucoin prices do not fluctuate anymore.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.1.1
+  Features:
+    - If GoldMining mod is installed, add recipes to craft ucoin from Gold Plate
+	- Added fixed price for Gold Plate and Gold Ingot for GoldMining mod.
+
+  Changes:
+    - Fixed compatibility with angels bio processing.
+    - Removed nonexisting optional dependency FreeTools.
+	- Fixed rare bug when loading a saved game without BlackMarket installed and 
+	another mods adds a surface.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.1.0
+  Changes:
+    - Simple sell chest is available at Tech 0.
+	- Added interface so other mods (TechnologyMarket) can spend credits.
+	- Increased market fluctuation so selling the same product is
+	less and less profitable over time.
+
+##VERSIONS:
+1.0.37	- corrections by CakeDog.
+1.0.36	- fluid box "type" becomes "name" (thx to CakeDog)
+1.0.35	- add script.on_event(defines.events.on_gui_checked_state_changed, on_gui_click)
+1.0.34	- 0.16
+1.0.33	- correction of tank capacity, changed in 0.15. Add a global scroll bar in item list, when too many groups.
+1.0.32	- factorio 0.15 compatible
+1.0.31	- russian locale by RikkiLook
+1.0.30	- add a scrollbar in the objects menu.
+1.0.29	- add a test in update_objects_prices_start to avoid resource without mining products...
+1.0.28	- factorio 0.14 compatible
+1.0.27	- now you can also copy-paste tanks and accus settings.
+1.0.26	- add an item group in the crafting menu
+		- add 3 tiers of upgrades for traders and associate technos (bigger sizes).
+		  (change items/entities/recipes names to have the same length)
+1.0.25	- run update_groups after prices to display only priced items/fluids
+		- bad credits update on fluids and energy purchase
+		- lower ingredients for traders
+1.0.24	- introducing signals : auto-all/auto-sell/auto-buy : change automatic mode of connected traders.	
+		  on (>1), off (=1), ignore (=0)
+1.0.23	- a trader is now created with the default period specified in the main menu.
+		- the factorio copy/paste works now on trading chests (shift-rightmouse, shift-leftmouse)
+1.0.22	- split groups into all/items/fluids to display only needed groups
+1.0.21	- correct a display problem on last sold object + add tooltip with name.
+		- change free product handling : they now integrates the original potential ingredient list
+		  with nul price.
+		- better identification of additionnal resource using mineable_properties of entityprototype.
+1.0.20	- correct a problem with some new scenarios (call update_dynamic_prices too soon)
+1.0.19	- test version
+		- close objects menu when close trader.
+		- during pricing, test direct product-recipes to ease things.
+		- during pricing, better tag free products (if multiple recipes for 1 product and only one is free (like "repl-"))
+		- during pricing, no more special recipe name checking per mod.
+		- correct a problem on initial current price calcul
+		- price slow return only if price untouched.
+		- dynamic pricing is updated once a day.
+		- display last period money differently.
+		- add a last sold object and price.
+1.0.18	- test version
+		- reset transactions for map version <= 1.0.14
+1.0.17	- test version
+		- add update_dynamic_prices() after scan.
+1.0.16	- test version
+		- bug with forgotten variable tot in evaluate.
+		- bug with bad credit value button update while scanning prices.
+1.0.15	- test version
+		- correct a problem with traders not closed properly if another one opened too quick.
+		- problem with update_groups() when no player_mem
+1.0.14	- test version
+		- add technos for sell/buy fluids and energy (trading tanks, trading accumulators)
+		  Note that unit for energy trading is MJ.
+		- add dynamic pricing, using a simplified law of supply and demand
+		  (the more players sell one object, the more its price decreases,
+		  the more players buy one object, the more its price increases)
+		  This dynamic pricing is for the whole map, not only one force.
+		  When untouched, an object price return slowly to its original price.
+1.0.13	- skip orders that are too expensive, and try next ones.
+		- rebalance vanilla resource prices. Oil must be more expensive than other resources,
+		  coal is cheaper, water is cheaper.
+1.0.12	- clean also transactions when cleaning orders.
+		- limit number or orders to 99 in buying chest.
+		- increase buttons number to 1-999.
+		- disable any GUI during scanning.
+1.0.11	- avoid double scan (manual scan while automatic is done).
+		- simplify code, enrich debug prices.
+1.0.10	- scan recipes in background, using on_tick, showing progress so that user can be patient... :-)
+		- correct bug on tax on ucoins selling.
+		- do not "unknown" remaining ingredients that are correct but linked to recipes with missing ingredients or
+		  looped ingredients.
+1.0.9	- correct new resources not added to initial pass.
+		- do not parse hidden recipes
+1.0.8	- return to manual prices scan, to avoid long waiting times for people having lots of mods and doing a lot
+		  of install/uninstall. But display a warning message to advice the user to do a manual rescan in case of
+		  mods change.
+1.0.7	- unofficial test version
+		- correct a problem with random product recipes.
+		- at the beginning, try to identify and separate original resources/undeclared resources/free items/unknow items
+		- include a max loop number in the main scan process
+		- export now generates a list of these special items, ready to be edited and included into config.lua .
+1.0.6	- automatically rescan prices if any mod change. Also clean chests orders of uninstalled items.
+		- new prices scan routine from bottom to top. Should better handle loop recipes.
+		- Export now generates a list of unpriced items, ready to be edited and included into config.lua
+		  in case user wants to apply specific prices to these unknown items...
+		- New icons with horizontal chevron arrows to represent "from $" (buy) and "to $" (sell).
+1.0.5	- avoid crash when browsing an unpriced object (if user forgot to rescan when installing mod)
+1.0.4	- set unpriced objects to 999 (mostly no-ingredients objects)
+		- exclude zrecycling recipes.
+		- add a few special items to config.lua (gems, etc...), that were not declared as resources.
+1.0.3	- at first pass, exclude some recipes by their name/prefix to avoid bad recipes (boxing, replicator, barrels, reverse factory, etc...)
+1.0.2	- correct a problem with strange recipes that has products with amount undefined.
+1.0.1	- implement forces merging
+		- bug on item price in order
+1.0.0	- initial release
