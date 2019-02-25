@@ -1,4 +1,38 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.1.0 (not released yet)
+  Changes:
+	- Added Central Bank technology which unlock the International Bank Station (IBS) satellite, that once launched, connect all banks in the map.
+		- With Central Banking Satellite launched, the credits available is the sum of the ucoins
+		stored in all the banks of the force.
+		- With Central Banking Satellite launched, the credits available in your account is
+		shown on the top of your UI
+		- Sending more than 1 satellite does not change anything
+---------------------------------------------------------------------------------------------------
+Version: 2.0.0
+  Breaking changes:
+	- After selling, ucoins are now placed into the chest. You will have to take them to be able
+	to use them.
+	- To buy, you need to put ucoins in the chest before buying.
+
+  Changes:
+	- Ucoins cannot be sold or bought from trader chest anymore.
+    - Added Banking technology which unlocks a new entity "Bank" which acts as
+	a chest for ucoins.
+		- You can buy many banks.
+		- Hovering a bank shows the number of ucoins
+		stored in the bank (base game behavior)
+		- If a bank is destroyed, the ucoins are lost.
+	- Added "Wire transfer" technology which unlocks the option on trader chests to instantally transfer
+	ucoins to the closest bank if connected through electric wires.
+	(buy or sell). (original behavior in 1.x.x)
+		- Banks in the same electric network are not connected.
+		- The credits available is the sum of the ucoins stored in all the banks in
+		the same electric network.
+- 		- Hovering a bank shows the ucoins stored in all the
+		banks in the same electric network.
+	- Check to set a trader chest to sell/buy once in the next period
+
+---------------------------------------------------------------------------------------------------
 Version: 1.2.1
   Changes:
     - Fix Factorio version reporting on mods portal
