@@ -1,4 +1,3 @@
-- no dynamic pricing for selected items (ucoin, gold)
 - Selling fee 50% --> banter upgrade
   \ level 1 40 % - no deps
   \ level 2 30% - use your explosive to have better deals
