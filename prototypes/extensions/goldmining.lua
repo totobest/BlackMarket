@@ -1,5 +1,5 @@
 require("utils")
-require("stdlib/table")
+require("stdlib/utils/table")
 
 if mods["GoldMining"] and data.raw.technology["gold-processing"] ~= nil then
 

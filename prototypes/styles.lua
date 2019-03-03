@@ -122,7 +122,7 @@ default_gui.label_bold_blkmkt_style =
 
 default_gui.textfield_blkmkt_style =
 {
-    type = "textfield_style",
+    type = "textbox_style",
 	font="font_bold_blkmkt",
 	align = "left",
     font_color = {},
@@ -227,11 +227,7 @@ default_gui.sprite_group_blkmkt_style =
 	left_padding = 0,
 	width = 64,
 	height = 64,
-	scalable = false,
-	default_graphical_set = extract_monolith("__BlackMarket__/graphics/gui.png", 0, 0, 32, 32),
-	hovered_graphical_set = extract_monolith("__BlackMarket__/graphics/gui.png", 0, 0, 32, 32),
-	clicked_graphical_set = extract_monolith("__BlackMarket__/graphics/gui.png", 0, 0, 32, 32),
-	disabled_graphical_set = extract_monolith("__BlackMarket__/graphics/gui.png", 0, 0, 32, 32),
+	scalable = false
 }
 
 default_gui.sprite_obj_blkmkt_style = 
@@ -246,11 +242,7 @@ default_gui.sprite_obj_blkmkt_style =
 	width = 32,
 	-- minimal_width = 32,
 	-- minimal_height = 32,
-	scalable = false,
-	default_graphical_set = extract_monolith("__BlackMarket__/graphics/gui.png", 0, 0, 32, 32),
-	hovered_graphical_set = extract_monolith("__BlackMarket__/graphics/gui.png", 32, 0, 32, 32),
-	clicked_graphical_set = extract_monolith("__BlackMarket__/graphics/gui.png", 64, 0, 32, 32),
-	disabled_graphical_set = extract_monolith("__BlackMarket__/graphics/gui.png", 0, 0, 32, 32),
+	scalable = false
 }
 
 
