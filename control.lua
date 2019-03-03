@@ -5,6 +5,7 @@ prices_file = debug_mod_name .. "-prices.csv"
 specials_file = debug_mod_name .. "-specials.txt"
 require("utils")
 require("config")
+require("mod-gui")
 
 local trader_type = { item=1, fluid=2, energy=3, "item", "fluid", "energy" }
 local energy_name = "market-energy" -- name of fake energy item
@@ -85,12 +86,13 @@ end
 
 --------------------------------------------------------------------------------------
 local function build_bar( player )
-	local gui1 = player.gui.top.flw_blkmkt
+	local gui_parent = mod_gui.get_button_flow(player)
+	local gui1 = gui_parent.flw_blkmkt
 	
 	if gui1 == nil then
 		local player_mem = global.player_mem[player.index]
 		-- debug_print("create gui player" .. player.name)
-		gui1 = player.gui.top.add({type = "flow", name = "flw_blkmkt", direction = "horizontal", style = "horizontal_flow_blkmkt_style"})
+		gui1 = gui_parent.add({type = "flow", name = "flw_blkmkt", direction = "horizontal", style = "horizontal_flow_blkmkt_style"})
 		gui1.add({type = "sprite-button", name = "but_blkmkt_main", sprite = "sprite_main_blkmkt", style = "sprite_main_blkmkt_style"})				
 		player_mem.but_blkmkt_credits = gui1.add({type = "button", name = "but_blkmkt_credits", caption = format_money(0), style = "button_blkmkt_credits_style"})				
 	end
@@ -125,17 +127,18 @@ end
 
 --------------------------------------------------------------------------------------
 local function build_menu_gen( player, player_mem, open_or_close )
+	local gui_parent = mod_gui.get_frame_flow(player)
 	if open_or_close == nil then
-		open_or_close = (player.gui.left.frm_blkmkt_gen == nil)
+		open_or_close = (gui_parent.frm_blkmkt_gen == nil)
 	end
 	
-	if player.gui.left.frm_blkmkt_gen then
-		player.gui.left.frm_blkmkt_gen.destroy()
+	if gui_parent.frm_blkmkt_gen then
+		gui_parent.frm_blkmkt_gen.destroy()
 	end
 	
 	if open_or_close and not global.prices_computed then
 		local gui1, gui2, gui3
-		gui1 = player.gui.left.add({type = "frame", name = "frm_blkmkt_gen", caption = {"blkmkt-gui-blkmkt"}, style = "frame_blkmkt_style"})
+		gui1 = gui_parent.add({type = "frame", name = "frm_blkmkt_gen", caption = {"blkmkt-gui-blkmkt"}, style = "frame_blkmkt_style"})
 		gui1 = gui1.add({type = "flow", name = "flw_blkmkt_gen", direction = "vertical", style = "vertical_flow_blkmkt_style"})
 		
 		gui2 = gui1.add({type = "flow", direction = "horizontal", style = "horizontal_flow_blkmkt_style"})
@@ -219,7 +222,8 @@ end
 
 --------------------------------------------------------------------------------------
 local function update_menu_gen( player, player_mem )
-	if player.gui.left.frm_blkmkt_gen == nil or global.prices_computed then
+	local gui_parent = mod_gui.get_frame_flow(player)
+	if gui_parent.frm_blkmkt_gen == nil or global.prices_computed then
 		return
 	end
 	
@@ -257,19 +261,20 @@ end
 
 --------------------------------------------------------------------------------------
 local function build_menu_trader( player, player_mem, open_or_close )
+	local gui_parent = mod_gui.get_frame_flow(player)
 	if open_or_close == nil then
-		open_or_close = (player.gui.left.frm_blkmkt_trader == nil)
+		open_or_close = (gui_parent.frm_blkmkt_trader == nil)
 	end
 	
-	if player.gui.left.frm_blkmkt_trader then
-		player.gui.left.frm_blkmkt_trader.destroy()
+	if gui_parent.frm_blkmkt_trader then
+		gui_parent.frm_blkmkt_trader.destroy()
 		player_mem.frm_blkmkt_trader = nil
 	end
 	
 	if open_or_close and not global.prices_computed then
 		local trader = player_mem.opened_trader
 		local gui1, gui2, gui3
-		gui1 = player.gui.left.add({type = "frame", name = "frm_blkmkt_trader", style = "frame_blkmkt_style"})
+		gui1 = gui_parent.add({type = "frame", name = "frm_blkmkt_trader", style = "frame_blkmkt_style"})
 		player_mem.frm_blkmkt_trader = gui1
 		gui1 = gui1.add({type = "flow", name = "flw_blkmkt_trader", direction = "vertical", style = "vertical_flow_blkmkt_style"})
 		
@@ -371,7 +376,8 @@ end
 
 --------------------------------------------------------------------------------------
 local function update_menu_trader( player, player_mem, update_orders )
-	if player.gui.left.frm_blkmkt_trader == nil or global.prices_computed then
+	local gui_parent = mod_gui.get_frame_flow(player)
+	if gui_parent.frm_blkmkt_trader == nil or global.prices_computed then
 		return
 	end
 	
@@ -492,18 +498,19 @@ end
 
 --------------------------------------------------------------------------------------
 local function build_menu_objects( player, open_or_close, ask_sel )
+	local gui_parent = mod_gui.get_frame_flow(player)
 	if open_or_close == nil then
-		open_or_close = (player.gui.left.frm_blkmkt_itml == nil)
+		open_or_close = (gui_parent.frm_blkmkt_itml == nil)
 	end
 	
-	if player.gui.left.frm_blkmkt_itml then
-		player.gui.left.frm_blkmkt_itml.destroy()
+	if gui_parent.frm_blkmkt_itml then
+		gui_parent.frm_blkmkt_itml.destroy()
 	end
 	
 	if open_or_close and not global.prices_computed then
 		local player_mem = global.player_mem[player.index]
 		local gui1, gui2, gui3
-		gui1 = player.gui.left.add({type = "frame", name = "frm_blkmkt_itml", caption = {"blkmkt-gui-objects-list"}, style = "frame_blkmkt_style"})
+		gui1 = mod_gui.get_frame_flow(player).add({type = "frame", name = "frm_blkmkt_itml", caption = {"blkmkt-gui-objects-list"}, style = "frame_blkmkt_style"})
 		gui1 = gui1.add({type = "flow", name = "flw_blkmkt_itml", direction = "vertical", style = "vertical_flow_blkmkt_style"})
 		-- gui1.style.minimal_height = 500
 		gui1.style.minimal_width = 380
@@ -579,7 +586,8 @@ local function update_gui(player,update_orders)
 		update_bar(player)
 		update_menu_gen(player,player_mem)
 		update_menu_trader(player,player_mem,update_orders)
-		if player.gui.left.frm_blkmkt_itml then
+		local gui_parent = mod_gui.get_frame_flow(player)
+		if gui_parent.frm_blkmkt_itml then
 			build_menu_objects(player,true,player_mem.ask_sel)
 		end
 	end
@@ -2041,9 +2049,9 @@ local function on_configuration_changed(data)
 				end
 				
 				for _, player in pairs(game.players) do
-					if player.gui.left.frm_blkmkt_chest then
+					if mod_gui.get_frame_flow(player).frm_blkmkt_chest then
 						local player_mem = global.player_mem[player.index]
-						player.gui.left.frm_blkmkt_chest.destroy() -- destroy old windows
+						mod_gui.get_frame_flow(player).frm_blkmkt_chest.destroy() -- destroy old windows
 						player_mem.frm_blkmkt_chest = nil
 					end
 				end
@@ -3054,7 +3062,7 @@ function interface.reset()
 	end
 
 	for _, player in pairs(game.players) do
-		if player.gui.top.flw_blkmkt then player.gui.top.flw_blkmkt.destroy() end
+		if mod_gui.get_button_flow(player).flw_blkmkt then player.gui.top.flw_blkmkt.destroy() end
 		init_player(player)
 		local player_mem = global.player_mem[player.index]
 		update_menu_gen(player,player_mem)

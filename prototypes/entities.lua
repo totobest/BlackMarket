@@ -42,7 +42,6 @@ data:extend(
 			name = "ucoin",
 			icon = "__BlackMarket__/graphics/ucoin.png",
 			icon_size = 32,
-			flags = {"goes-to-quickbar"},
 			subgroup = "black-market-general",
 			order = "y",
 			stack_size = 1000000
@@ -57,7 +56,7 @@ data:extend(
 			unit = {
 				count = 75,
 				ingredients = {
-					{"science-pack-1", 1},
+					{"automation-science-pack", 1},
 				},
 				time = 15
 			},
@@ -81,8 +80,8 @@ data:extend(
 			unit = {
 				count = 75,
 				ingredients = {
-					{"science-pack-1", 1},
-					{"science-pack-2", 1},
+					{"automation-science-pack", 1},
+					{"logistic-science-pack", 1},
 				},
 				time = 20
 			},
@@ -110,8 +109,8 @@ data:extend(
 			unit = {
 				count = 150,
 				ingredients = {
-					{"science-pack-1", 1},
-					{"science-pack-2", 1},
+					{"automation-science-pack", 1},
+					{"logistic-science-pack", 1},
 				},
 				time = 25
 			},
@@ -140,9 +139,9 @@ data:extend(
 			unit = {
 				count = 150,
 				ingredients = {
-					{"science-pack-1", 1},
-					{"science-pack-2", 1},
-					{"science-pack-3", 1},
+					{"automation-science-pack", 1},
+					{"logistic-science-pack", 1},
+					{"chemical-science-pack", 1},
 				},
 				time = 15
 			},
@@ -163,9 +162,9 @@ data:extend(
 			unit = {
 				count = 200,
 				ingredients = {
-					{"science-pack-1", 1},
-					{"science-pack-2", 1},
-					{"science-pack-3", 1},
+					{"automation-science-pack", 1},
+					{"logistic-science-pack", 1},
+					{"chemical-science-pack", 1},
 				},
 				time = 15
 			},
@@ -186,9 +185,9 @@ data:extend(
 			unit = {
 				count = 250,
 				ingredients = {
-					{"science-pack-1", 1},
-					{"science-pack-2", 1},
-					{"science-pack-3", 1},
+					{"automation-science-pack", 1},
+					{"logistic-science-pack", 1},
+					{"chemical-science-pack", 1},
 				},
 				time = 15
 			},
@@ -252,7 +251,6 @@ local function add_chests(level)
 				name = name_sell,
 				icon = "__BlackMarket__/graphics/trading-chest-sell-icon.png",
 				icon_size = 32,
-				flags = {"goes-to-quickbar"},
 				subgroup = "black-market-chests",
 				order = level .. "a",
 				place_result = name_sell,
@@ -293,7 +291,6 @@ local function add_chests(level)
 				name = name_buy,
 				icon = "__BlackMarket__/graphics/trading-chest-buy-icon.png",
 				icon_size = 32,
-				flags = {"goes-to-quickbar"},
 				subgroup = "black-market-chests",
 				order = level .. "b",
 				place_result = name_buy,
@@ -366,7 +363,6 @@ local function add_tanks(level)
 				name = name_sell,
 				icon = "__BlackMarket__/graphics/trading-tank-sell-icon.png",
 				icon_size = 32,
-				flags = {"goes-to-quickbar"},
 				subgroup = "black-market-tanks",
 				order = level .. "a",
 				place_result = name_sell,
@@ -401,7 +397,6 @@ local function add_tanks(level)
 				name = name_buy,
 				icon = "__BlackMarket__/graphics/trading-tank-buy-icon.png",
 				icon_size = 32,
-				flags = {"goes-to-quickbar"},
 				subgroup = "black-market-tanks",
 				order = level .. "b",
 				place_result = name_buy,
@@ -468,14 +463,9 @@ local function add_accus(level)
 	if level == 4 then flow_limit = 25 end
 	--------------------------------------------------------------------------------------
 	local accu_sell = dupli_proto( "accumulator", "accumulator", name_sell )
-	accu_sell.energy_source =
-		{
-			type = "electric",
-			buffer_capacity = accu_max .. "MJ",
-			usage_priority = "terciary",
-			input_flow_limit = flow_limit .. "MW", 
-			output_flow_limit = "0MW",
-		}
+	accu_sell.energy_source.buffer_capacity = accu_max .. "MJ"
+	accu_sell.energy_source.input_flow_limit = flow_limit .. "MW"
+	accu_sell.energy_source.output_flow_limit = "0MW"
 	accu_sell.picture.filename = "__BlackMarket__/graphics/trading-accumulator-sell.png"
 	accu_sell.charge_animation.filename = "__BlackMarket__/graphics/trading-accumulator-sell-charge.png"
 	accu_sell.discharge_animation.filename = "__BlackMarket__/graphics/trading-accumulator-sell-discharge.png"
@@ -489,7 +479,6 @@ local function add_accus(level)
 				name = name_sell,
 				icon = "__BlackMarket__/graphics/trading-accumulator-sell-icon.png",
 				icon_size = 32,
-				flags = {"goes-to-quickbar"},
 				subgroup = "black-market-accumulators",
 				order = level .. "a",
 				place_result = name_sell,
@@ -512,14 +501,9 @@ local function add_accus(level)
 
 	--------------------------------------------------------------------------------------
 	local accu_buy = dupli_proto( "accumulator", "accumulator", name_buy )
-	accu_buy.energy_source =
-		{
-			type = "electric",
-			buffer_capacity = accu_max .. "MJ",
-			usage_priority = "terciary",
-			input_flow_limit = "0MW",
-			output_flow_limit = flow_limit .. "MW", 
-		}
+	accu_buy.energy_source.buffer_capacity = accu_max .. "MJ"
+	accu_buy.energy_source.input_flow_limit = "0MW"
+	accu_buy.energy_source.output_flow_limit = flow_limit .. "MW"
 	accu_buy.picture.filename = "__BlackMarket__/graphics/trading-accumulator-buy.png"
 	accu_buy.charge_animation.filename = "__BlackMarket__/graphics/trading-accumulator-buy-charge.png"
 	accu_buy.discharge_animation.filename = "__BlackMarket__/graphics/trading-accumulator-buy-discharge.png"
@@ -533,7 +517,6 @@ local function add_accus(level)
 				name = name_buy,
 				icon = "__BlackMarket__/graphics/trading-accumulator-buy-icon.png",
 				icon_size = 32,
-				flags = {"goes-to-quickbar"},
 				subgroup = "black-market-accumulators",
 				order = level .. "b",
 				place_result = name_buy,
